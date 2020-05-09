@@ -7,6 +7,7 @@ public class Rocket : MonoBehaviour{
     //Config
     float mainThrust;
     float reactiveThrust;
+
     //State
 
     //Cached component references
