@@ -46,7 +46,11 @@ public class Rocket : MonoBehaviour{
     }
 
     private void HandleRotation() {
+        rigidbody.freezeRotation = true;
+
         float zRotation = Input.GetAxis("Horizontal") * Time.deltaTime * rotationDegree;
         transform.Rotate(new Vector3(0f, 0, zRotation));
+
+        rigidbody.freezeRotation = false;
     }
 }
