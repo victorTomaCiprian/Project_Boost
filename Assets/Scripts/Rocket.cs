@@ -5,8 +5,8 @@ using UnityEngine;
 public class Rocket : MonoBehaviour{
 
     //Config
-    [SerializeField] float thrustSpeed;
-    [SerializeField] float rotationDegree;
+    float mainThrust;
+    float reactiveThrust;
     //State
 
     //Cached component references
@@ -21,7 +21,8 @@ public class Rocket : MonoBehaviour{
     }
     
     private void Start(){
-
+        mainThrust = 10f;
+        reactiveThrust = 200f;
     }
 
     private void Update(){
@@ -31,7 +32,7 @@ public class Rocket : MonoBehaviour{
    
     private void HandleThrust() {
         if (Input.GetButton("Jump")) {
-            rigidbody.AddRelativeForce(new Vector3(0f, thrustSpeed, 0f));
+            rigidbody.AddRelativeForce(new Vector3(0f, mainThrust, 0f));
             PlayEngineSFX();
         }
         else {
@@ -48,8 +49,8 @@ public class Rocket : MonoBehaviour{
     private void HandleRotation() {
         rigidbody.freezeRotation = true;
 
-        float zRotation = Input.GetAxis("Horizontal") * Time.deltaTime * rotationDegree;
-        transform.Rotate(new Vector3(0f, 0, zRotation));
+        float rotationThisFrame = Input.GetAxis("Horizontal") * Time.deltaTime * reactiveThrust;
+        transform.Rotate(new Vector3(0f, 0, rotationThisFrame));
 
         rigidbody.freezeRotation = false;
     }
