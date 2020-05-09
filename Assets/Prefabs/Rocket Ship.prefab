@@ -11,7 +11,6 @@ GameObject:
   - component: {fileID: 8372553636671236809}
   - component: {fileID: 8372553636671236804}
   - component: {fileID: 8372553636671236811}
-  - component: {fileID: 8372553636671236810}
   m_Layer: 0
   m_Name: Starboard Booster
   m_TagString: Untagged
@@ -82,19 +81,6 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
---- !u!65 &8372553636671236810
-BoxCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8372553636671236808}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
-  m_Enabled: 1
-  serializedVersion: 2
-  m_Size: {x: 1, y: 1, z: 1}
-  m_Center: {x: 0, y: 0, z: 0}
 --- !u!1 &8372553636921207350
 GameObject:
   m_ObjectHideFlags: 0
@@ -106,7 +92,6 @@ GameObject:
   - component: {fileID: 8372553636921207351}
   - component: {fileID: 8372553636921207346}
   - component: {fileID: 8372553636921207345}
-  - component: {fileID: 8372553636921207344}
   m_Layer: 0
   m_Name: Port Booster
   m_TagString: Untagged
@@ -177,19 +162,6 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
---- !u!65 &8372553636921207344
-BoxCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8372553636921207350}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
-  m_Enabled: 1
-  serializedVersion: 2
-  m_Size: {x: 1, y: 1, z: 1}
-  m_Center: {x: 0, y: 0, z: 0}
 --- !u!1 &8372553637093342985
 GameObject:
   m_ObjectHideFlags: 0
@@ -201,7 +173,6 @@ GameObject:
   - component: {fileID: 8372553637093342986}
   - component: {fileID: 8372553637093342981}
   - component: {fileID: 8372553637093342980}
-  - component: {fileID: 8372553637093342987}
   m_Layer: 0
   m_Name: Rocket Body
   m_TagString: Untagged
@@ -272,19 +243,6 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
---- !u!65 &8372553637093342987
-BoxCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8372553637093342985}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
-  m_Enabled: 1
-  serializedVersion: 2
-  m_Size: {x: 1, y: 1, z: 1}
-  m_Center: {x: 0, y: 0, z: 0}
 --- !u!1 &8372553637310062266
 GameObject:
   m_ObjectHideFlags: 0
@@ -295,7 +253,8 @@ GameObject:
   m_Component:
   - component: {fileID: 8372553637310062267}
   - component: {fileID: 772345355}
-  - component: {fileID: 5940060850982048923}
+  - component: {fileID: 4101320428736851187}
+  - component: {fileID: 1559829087}
   - component: {fileID: 772345354}
   m_Layer: 0
   m_Name: Rocket Ship
@@ -338,7 +297,20 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 56
   m_CollisionDetection: 0
---- !u!82 &5940060850982048923
+--- !u!65 &4101320428736851187
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8372553637310062266}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 1.2622147, y: 4.525628, z: 1}
+  m_Center: {x: 0.0054512024, y: 0.019728184, z: 0}
+--- !u!82 &1559829087
 AudioSource:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -350,8 +322,8 @@ AudioSource:
   OutputAudioMixerGroup: {fileID: 0}
   m_audioClip: {fileID: 8300000, guid: 02a7ef49aa1618648887271effdbbd95, type: 3}
   m_PlayOnAwake: 0
-  m_Volume: 1
-  m_Pitch: 0.8
+  m_Volume: 0.8
+  m_Pitch: 1
   Loop: 0
   Mute: 0
   Spatialize: 0
@@ -446,6 +418,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 00fb422b7edeae14ca6281baa340d648, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  mainThrust: 10
+  reactiveThrust: 250
 --- !u!1 &8372553637629574968
 GameObject:
   m_ObjectHideFlags: 0
@@ -457,7 +431,6 @@ GameObject:
   - component: {fileID: 8372553637629574969}
   - component: {fileID: 8372553637629574964}
   - component: {fileID: 8372553637629574971}
-  - component: {fileID: 8372553637629574970}
   m_Layer: 0
   m_Name: Rocket Nose
   m_TagString: Untagged
@@ -528,17 +501,3 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
---- !u!136 &8372553637629574970
-CapsuleCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8372553637629574968}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
-  m_Enabled: 1
-  m_Radius: 0.5
-  m_Height: 1.0000001
-  m_Direction: 1
-  m_Center: {x: 0.000000007450581, y: 0.00000011920929, z: -0.0000000037252903}

@@ -1,12 +1,11 @@
-﻿using System.Collections;
-using System.Collections.Generic;
+﻿
 using UnityEngine;
 
 public class Rocket : MonoBehaviour{
 
     //Config
-    float mainThrust;
-    float reactiveThrust;
+    [SerializeField] float mainThrust = 10f;
+    [SerializeField] float reactiveThrust = 200f;
 
     //State
 
@@ -22,17 +21,32 @@ public class Rocket : MonoBehaviour{
     }
     
     private void Start(){
-        mainThrust = 10f;
-        reactiveThrust = 200f;
+        //reactiveThrust = 200f;
     }
 
     private void Update(){
         HandleThrust();
         HandleRotation();
     }
-   
+
+    private void OnCollisionEnter(Collision collision) {
+        HandleCollisionWithTags(collision);
+    }
+
+    private void HandleCollisionWithTags(Collision collision) {
+        switch (collision.gameObject.tag) {
+            case "Friendly":
+                Debug.Log("OK");
+                break;
+            default:
+                Debug.Log("Dead");
+                break;
+        }
+    }
+
     private void HandleThrust() {
-        if (Input.GetButton("Jump")) {
+        
+        if (Input.GetButton("Jump") ) {
             rigidbody.AddRelativeForce(new Vector3(0f, mainThrust, 0f));
             PlayEngineSFX();
         }
@@ -49,10 +63,9 @@ public class Rocket : MonoBehaviour{
 
     private void HandleRotation() {
         rigidbody.freezeRotation = true;
-
+        
         float rotationThisFrame = Input.GetAxis("Horizontal") * Time.deltaTime * reactiveThrust;
         transform.Rotate(new Vector3(0f, 0, rotationThisFrame));
-
         rigidbody.freezeRotation = false;
     }
 }
