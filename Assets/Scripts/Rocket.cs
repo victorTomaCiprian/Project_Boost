@@ -20,14 +20,18 @@ public class Rocket : MonoBehaviour{
     [SerializeField] AudioClip winSFX;
     [Range(0f, 1f)][SerializeField] float winVolume;
 
+    [Space(15)]
+    [SerializeField] GameObject deathVFX;
+    [SerializeField] ParticleSystem mainEngineVFX;
+    [SerializeField] ParticleSystem winVFX;
+
     //State
-    float waitTimeBetweenLevels;
-    float waitTimeBetweenDeaths;
 
     //Cached component references
     Rigidbody rigidbody;
     AudioSource audioSource;
     int currentSceneIndex;
+    SceneLoader sceneLoader;
     
     enum States {
         Alive,
@@ -40,19 +44,16 @@ public class Rocket : MonoBehaviour{
     private void Awake(){
         rigidbody = GetComponent<Rigidbody>();
         audioSource = GetComponent<AudioSource>();
-        currentSceneIndex = SceneManager.GetActiveScene().buildIndex;
+        sceneLoader = FindObjectOfType<SceneLoader>();
     }
     
     private void Start(){
         mainThrust = 10f;
-        reactiveThrust = 250f;
+        reactiveThrust = 300f;
 
         mainEngineVolume = 1f;
         deathVolume = 1f;
         winVolume = 1f;
-
-        waitTimeBetweenLevels = 2f;
-        waitTimeBetweenDeaths = 1f;
     }
 
     private void Update() {
@@ -85,25 +86,32 @@ public class Rocket : MonoBehaviour{
         state = States.Transcend;
         audioSource.Stop();
         audioSource.PlayOneShot(winSFX, winVolume);
-        StartCoroutine(LoadNextScene());
+        ProcessWinVFX();
+        sceneLoader.LoadNextScene();
     }
 
+    private void ProcessWinVFX() {
+        mainEngineVFX.Stop();
+        winVFX.Play();
+    }
     private void StartDeathSequence() {
         state = States.Dead;
+        ProcessDeathSFX();
+        ProcessDeathVFX();
+        sceneLoader.ReloadCurrentScene();
+    }
+
+    private void ProcessDeathSFX() {
         audioSource.Stop();
-        audioSource.PlayOneShot(deathSFX, deathVolume);
-        StartCoroutine(ReloadCurrentScene());
+        AudioSource.PlayClipAtPoint(deathSFX, Camera.main.transform.position, deathVolume);
     }
 
-    private IEnumerator LoadNextScene() {
-        yield return new WaitForSecondsRealtime(waitTimeBetweenLevels);
-        SceneManager.LoadScene(currentSceneIndex + 1);
+    private void ProcessDeathVFX() {
+        mainEngineVFX.Stop();
+        Instantiate(deathVFX, gameObject.transform.position, Quaternion.identity);
+        Destroy(gameObject);
     }
 
-    private IEnumerator ReloadCurrentScene() {
-        yield return new WaitForSecondsRealtime(waitTimeBetweenDeaths);
-        SceneManager.LoadScene(currentSceneIndex);
-    }
     private void ProcessMovement() {
 
         if (state.Equals(States.Alive)) {
@@ -113,19 +121,21 @@ public class Rocket : MonoBehaviour{
 
     }
     private void HandleThrust() {
-        if (Input.GetButton("Jump") ) {
+        if (Input.GetButton("Jump")) {
             rigidbody.AddRelativeForce(new Vector3(0f, mainThrust, 0f));
-            PlayEngineSFX();
+            PlayEngineEffects();
         }
         else {
             audioSource.Stop();
+            mainEngineVFX.Stop();
         }
     }
 
-    private void PlayEngineSFX() {
+    private void PlayEngineEffects() {
         if (!audioSource.isPlaying) {
             audioSource.PlayOneShot(mainEngineSFX, mainEngineVolume);
         }
+        mainEngineVFX.Play();
     }
 
     private void HandleRotation() {
