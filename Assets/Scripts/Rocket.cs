@@ -1,4 +1,5 @@
 ﻿
+using System;
 using System.Collections;
 using UnityEditorInternal;
 using UnityEngine;
@@ -7,12 +8,21 @@ using UnityEngine.SceneManagement;
 public class Rocket : MonoBehaviour{
 
     //Config
-    [SerializeField] float mainThrust = 10f;
-    [SerializeField] float reactiveThrust = 200f;
+    float mainThrust;
+    float reactiveThrust;
+    
+    [SerializeField] AudioClip mainEngineSFX;
+    [Range(0f,1f)][SerializeField] float mainEngineVolume;
+    [Space(10)]
+    [SerializeField] AudioClip deathSFX;
+    [Range(0f, 1f)][SerializeField] float deathVolume;
+    [Space(10)]
+    [SerializeField] AudioClip winSFX;
+    [Range(0f, 1f)][SerializeField] float winVolume;
 
     //State
-    float waitTimeBetweenLevels = 2f;
-    float waitTimeBetweenDeaths = 1f;
+    float waitTimeBetweenLevels;
+    float waitTimeBetweenDeaths;
 
     //Cached component references
     Rigidbody rigidbody;
@@ -34,7 +44,15 @@ public class Rocket : MonoBehaviour{
     }
     
     private void Start(){
-        //reactiveThrust = 200f;
+        mainThrust = 10f;
+        reactiveThrust = 250f;
+
+        mainEngineVolume = 1f;
+        deathVolume = 1f;
+        winVolume = 1f;
+
+        waitTimeBetweenLevels = 2f;
+        waitTimeBetweenDeaths = 1f;
     }
 
     private void Update() {
@@ -55,15 +73,26 @@ public class Rocket : MonoBehaviour{
                 Debug.Log("OK");
                 break;
             case "Finish":
-                state = States.Transcend;
-                StartCoroutine(LoadNextScene());
+                StartSuccessSequence();
                 break;
             default:
-                state = States.Dead;
-                StartCoroutine(ReloadCurrentScene());
-                audioSource.Stop();
+                StartDeathSequence();
                 break;
         }
+    }
+
+    private void StartSuccessSequence() {
+        state = States.Transcend;
+        audioSource.Stop();
+        audioSource.PlayOneShot(winSFX, winVolume);
+        StartCoroutine(LoadNextScene());
+    }
+
+    private void StartDeathSequence() {
+        state = States.Dead;
+        audioSource.Stop();
+        audioSource.PlayOneShot(deathSFX, deathVolume);
+        StartCoroutine(ReloadCurrentScene());
     }
 
     private IEnumerator LoadNextScene() {
@@ -95,7 +124,7 @@ public class Rocket : MonoBehaviour{
 
     private void PlayEngineSFX() {
         if (!audioSource.isPlaying) {
-            audioSource.Play();
+            audioSource.PlayOneShot(mainEngineSFX, mainEngineVolume);
         }
     }
 

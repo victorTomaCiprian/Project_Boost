@@ -715,6 +715,26 @@ PrefabInstance:
       propertyPath: mainThrust
       value: 10
       objectReference: {fileID: 0}
+    - target: {fileID: 772345354, guid: 38445def85de17741b0057246529aba8, type: 3}
+      propertyPath: mainEngineSFX
+      value: 
+      objectReference: {fileID: 8300000, guid: c0dc0961d5170bd428d3131689f2177a, type: 3}
+    - target: {fileID: 772345354, guid: 38445def85de17741b0057246529aba8, type: 3}
+      propertyPath: deathSFX
+      value: 
+      objectReference: {fileID: 8300000, guid: 8dddc7609bc59a241a25e990b1036fc1, type: 3}
+    - target: {fileID: 772345354, guid: 38445def85de17741b0057246529aba8, type: 3}
+      propertyPath: winSFX
+      value: 
+      objectReference: {fileID: 8300000, guid: 24f9a4208d81e454ca0faa5e0783b059, type: 3}
+    - target: {fileID: 772345354, guid: 38445def85de17741b0057246529aba8, type: 3}
+      propertyPath: levelLoadSFX
+      value: 
+      objectReference: {fileID: 8300000, guid: 24f9a4208d81e454ca0faa5e0783b059, type: 3}
+    - target: {fileID: 1559829087, guid: 38445def85de17741b0057246529aba8, type: 3}
+      propertyPath: m_audioClip
+      value: 
+      objectReference: {fileID: 0}
     - target: {fileID: 8372553637310062266, guid: 38445def85de17741b0057246529aba8, type: 3}
       propertyPath: m_Name
       value: Rocket Ship
