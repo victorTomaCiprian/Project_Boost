@@ -426,7 +426,7 @@ MonoBehaviour:
   deathVolume: 1
   winSFX: {fileID: 8300000, guid: 24f9a4208d81e454ca0faa5e0783b059, type: 3}
   winVolume: 1
-  deathVFX: {fileID: 100002, guid: 6ecf76dc4f268d340b2666896a954bcc, type: 3}
+  deathVFX: {fileID: 100002, guid: 920bdf418965e0544b890f103b583b75, type: 3}
   mainEngineVFX: {fileID: 6940475788350059310}
   winVFX: {fileID: 6931008620115183364}
 --- !u!1 &1648044049172058247

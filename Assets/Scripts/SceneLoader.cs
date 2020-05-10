@@ -3,6 +3,8 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
+
+[DisallowMultipleComponent]
 public class SceneLoader : MonoBehaviour{
 
     //Config
