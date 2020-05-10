@@ -28,6 +28,8 @@ public class Oscillator : MonoBehaviour{
     }
 
     private void Move() {
+        if (period <= Mathf.Epsilon) { return; }
+
         const float Tao = Mathf.PI * 2f;
         float cycle = Time.time / period;
 
