@@ -49,9 +49,9 @@ public class Rocket : MonoBehaviour{
     }
     
     private void Start(){
-        mainThrust = 10f;
-        reactiveThrust = 300f;
-
+        mainThrust = 3500f;
+        reactiveThrust = 350f;
+        Debug.Log(mainThrust);
         mainEngineVolume = 1f;
         deathVolume = 1f;
         winVolume = 1f;
@@ -123,7 +123,7 @@ public class Rocket : MonoBehaviour{
     }
     private void HandleThrust() {
         if (Input.GetButton("Jump")) {
-            rigidbody.AddRelativeForce(new Vector3(0f, mainThrust, 0f));
+            rigidbody.AddRelativeForce(new Vector3(0f, mainThrust * Time.deltaTime, 0f));
             PlayEngineEffects();
         }
         else {
