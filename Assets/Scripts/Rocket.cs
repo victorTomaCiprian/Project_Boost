@@ -1,7 +1,4 @@
 ﻿
-using System;
-using System.Collections;
-using UnityEditorInternal;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
@@ -24,8 +21,7 @@ public class Rocket : MonoBehaviour{
     [Space(15)]
     [SerializeField] GameObject deathVFX;
     [SerializeField] ParticleSystem mainEngineVFX;
-    [SerializeField] ParticleSystem winVFX;
-
+    [SerializeField] GameObject winVFX;
     //State
 
     //Cached component references
@@ -93,8 +89,9 @@ public class Rocket : MonoBehaviour{
 
     private void ProcessWinVFX() {
         mainEngineVFX.Stop();
-        winVFX.Play();
+        Instantiate(winVFX, gameObject.transform.position,Quaternion.identity);
     }
+
     private void StartDeathSequence() {
         state = States.Dead;
         ProcessDeathSFX();
@@ -108,7 +105,6 @@ public class Rocket : MonoBehaviour{
     }
 
     private void ProcessDeathVFX() {
-        mainEngineVFX.Stop();
         Instantiate(deathVFX, gameObject.transform.position, Quaternion.identity);
         Destroy(gameObject);
     }
@@ -137,6 +133,7 @@ public class Rocket : MonoBehaviour{
             audioSource.PlayOneShot(mainEngineSFX, mainEngineVolume);
         }
         mainEngineVFX.Play();
+        
     }
 
     private void HandleRotation() {
