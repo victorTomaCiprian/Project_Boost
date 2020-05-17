@@ -1,5 +1,4 @@
 ﻿using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
@@ -31,7 +30,13 @@ public class SceneLoader : MonoBehaviour{
 
     private IEnumerator LoadNextSceneOnTimer() {
         yield return new WaitForSecondsRealtime(waitTimeBetweenLevels);
-        SceneManager.LoadScene(currentSceneIndex + 1);
+        if (!currentSceneIndex.Equals(0) && 
+                (SceneManager.sceneCountInBuildSettings - 1) %  currentSceneIndex == 0) {
+            SceneManager.LoadScene(0);
+        }
+        else {
+            SceneManager.LoadScene(currentSceneIndex + 1);
+        }
     }
 
     public void ReloadCurrentScene() {

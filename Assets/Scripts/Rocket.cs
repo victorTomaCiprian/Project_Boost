@@ -144,10 +144,10 @@ public class Rocket : MonoBehaviour{
     }
 
     private void HandleRotation() {
-        rigidbody.freezeRotation = true;
+        rigidbody.angularVelocity = Vector3.zero;
         
         float rotationThisFrame = Input.GetAxis("Horizontal") * Time.deltaTime * reactiveThrust;
         transform.Rotate(new Vector3(0f, 0, rotationThisFrame));
-        rigidbody.freezeRotation = false;
+        
     }
 }
