@@ -29,6 +29,8 @@ public class Rocket : MonoBehaviour{
     AudioSource audioSource;
     int currentSceneIndex;
     SceneLoader sceneLoader;
+
+    DebugMode debugMode;
     
     enum States {
         Alive,
@@ -42,12 +44,13 @@ public class Rocket : MonoBehaviour{
         rigidbody = GetComponent<Rigidbody>();
         audioSource = GetComponent<AudioSource>();
         sceneLoader = FindObjectOfType<SceneLoader>();
+
+        debugMode = FindObjectOfType<DebugMode>();
     }
     
     private void Start(){
         mainThrust = 3500f;
         reactiveThrust = 350f;
-        Debug.Log(mainThrust);
         mainEngineVolume = 1f;
         deathVolume = 1f;
         winVolume = 1f;
@@ -58,6 +61,10 @@ public class Rocket : MonoBehaviour{
     }
 
     private void OnCollisionEnter(Collision collision) {
+        if (!debugMode.IsCollisionEnabled) {
+            return;
+        }
+
         HandleCollisionWithTags(collision);
     }
 
@@ -79,7 +86,7 @@ public class Rocket : MonoBehaviour{
         }
     }
 
-    private void StartSuccessSequence() {
+    public void StartSuccessSequence() {
         state = States.Transcend;
         audioSource.Stop();
         audioSource.PlayOneShot(winSFX, winVolume);
